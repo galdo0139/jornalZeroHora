@@ -1,0 +1,14 @@
+{
+    "name": "galdo/zerohora",
+    "description": "site do jornal zero hora",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Galdo",
+            "email": "matheus.kho@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.0"
+    }
+}

@@ -1,0 +1,21 @@
+<form action="../preview/" method="post">
+    <label for="link">Link URI</label>
+    <input type="text" name="link" value="{{link}}">
+    
+    <label for="title">Titulo</label>
+    <input type="text" name="title"  value="{{title}}">
+
+    <label for="subtitle">Sub-titulo</label>
+    <input type="text" name="subtitle"  value="{{subtitle}}">
+
+    <label for="content">Conteúdo</label>
+    <div class="controls">
+        <button>a</button>
+        <button>a</button>
+        <button>a</button>
+    </div>
+    <div name="write" id="write" contentEditable="true">{{write | raw}}</div>
+    <textarea name="writeContent" id="writeContent" hidden></textarea>
+    <button type="submit" id="submit">Pré-vizualizar</button>
+</form>
+<script src="../js/editor.js"></script>

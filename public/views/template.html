@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <link rel="stylesheet" href="../css/main.css">
+    {{style|raw}}
+</head>
+<body>
+    <div id="container">
+        <header>
+            <a href="{{home}}">
+                <img src="../images/logo-min.png" alt="Zero Hora">
+            </a>
+            <a style="color:#fff; float: right;" href="../newsList/"> Meu perfil</a>
+            <a style="color:#fff; float: right;" href="../escrever/">Escrever - </a>
+        </header>
+
+        <div class="" id="content">
+            {{content | raw}}
+        </div>
+
+        <footer>Rodapé</footer>
+    </div>
+</body>
+</html>

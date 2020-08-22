@@ -1,0 +1,43 @@
+#content form{
+    padding: 5rem 15%;
+}
+
+#content form input{
+    width: 100%;
+    height: 5rem;
+    margin-bottom: 2rem;
+
+    font-size: 2rem;
+    padding: 0.6rem;
+}
+
+#content form .controls{
+    background-color: #ccc;
+    border: 1px solid black;
+    border-bottom: 0px;
+    height: 3rem;
+}
+
+#content form #write{
+    width: 100%;
+    height: 300px;
+    border: 1px solid black;
+    border-top: 0px;
+    display: inline-block;
+    padding: 0.6rem;
+    outline: 0;
+    overflow-y: scroll;
+    
+}
+
+#content form #submit{
+    display: block;
+    width: 50%;
+    height: 3rem;
+    margin: 2rem auto ;
+    border: 0;
+}
+
+#content form #submit:hover{
+    background-color: #aaa;
+}

@@ -1,0 +1,17 @@
+<div class="preview-controlls">
+    <form action="../createNews/" method="post">
+        <input type="text" hidden name="link" value="{{newsLink}}">
+        <input type="text" hidden name="title" value="{{newsTitle}}">
+        <input type="text" hidden name="subtitle" value="{{newsSubtitle}}">
+        <textarea name="writeContent" id="writeContent" hidden>{{newsContent | raw}}</textarea>
+
+
+
+        <button id="return">Voltar</button>
+        <button  type="submit" id="confirm">Salvar</button>
+    </form>
+
+    
+</div>
+
+<script src="../js/previewControlls.js"></script>

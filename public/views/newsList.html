@@ -1,0 +1,26 @@
+<div class="news-card">
+    <a href="{{newsLink}}">
+        <div class="image">
+            <img src="{{coverSrc}}" alt="{{coverAlt}}">
+        </div>
+        <h1 class="newstitle">{{newstitle | raw}}</h1>
+        <h2 class="description">{{description | raw}}</h2>
+        <p class="author">{{author}}</p>
+        <p class="created-at">{{created_at}}</p>
+    </a>
+    <div class="buttons">
+        <a href="{{edit}}">
+            <button>
+                <span class="material-icons">edit</span>
+            </button>
+        </a>
+        <a href="{{delete}}">
+            <button>
+                <span class="material-icons">delete_forever</span>
+            </button>
+        </a>
+    </div>
+</div>
+
+
+
