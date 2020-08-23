@@ -105,9 +105,24 @@ class Database{
 		return $res;
 	}
 
-	public function update( $var = null)
+	public function update(string $table, array $fields = [], array $values = [], string $field, string $search, $operator = "=")
 	{
-		# code...
+		try {
+			$counter = 0;
+			$updateValues = "";
+			foreach ($fields as $value) {
+				$updateValues = "`$value` = '$values[$counter]'";
+				$counter++;
+			}
+			var_dump($updateValues);
+			// $query = "UPDATE `$table` SET (`$fields`) VALUES ('$values') WHERE $field $operator $search";
+			// $prepare = $this->db->prepare($query);
+			// $res = $prepare->execute();
+		}catch(PDOException $error) {
+			$result = 'Error: ' . $error->getMessage();
+		}
+		
+		//return $res;
 	}
 
 	public function delete(string $table, string $field, string $search, $operator = "=")

@@ -19,6 +19,7 @@ if(isset($_GET['id'])){
     $editNews = $news->getNews("newsId", $id);
     if($editNews != false) {
         $view = $twig->render('escrever.html', [
+            'id' => "?id=$id",
             'link' => $editNews['newsLink'],
             'title' => $editNews['newsTitle'],
             'subtitle' => $editNews['newsDescription'],

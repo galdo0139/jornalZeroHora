@@ -23,7 +23,10 @@ $newsContent = $_POST['writeContent'];
 
 
 
+
+$action = (isset($_GET['id'])) ? "editNews" : "createNews" ;
 $preview = $twig->render('previewControlls.html', [
+    'action' => "$action",
     'newsLink' => $newsLink,
     'newsTitle' => $newsTitle,
     'newsSubtitle' => $newsDescription,
