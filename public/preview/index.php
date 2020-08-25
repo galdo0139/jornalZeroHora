@@ -24,7 +24,7 @@ $newsContent = $_POST['writeContent'];
 
 
 
-$action = (isset($_GET['id'])) ? "editNews" : "createNews" ;
+$action = (isset($_GET['id'])) ? "editNews/?id={$_GET['id']}" : "createNews/" ;
 $preview = $twig->render('previewControlls.html', [
     'action' => "$action",
     'newsLink' => $newsLink,
@@ -36,10 +36,10 @@ $preview = $twig->render('previewControlls.html', [
 
 $view = $twig->render('news.html', [
     'preview' => $preview,
-    'newstitle' => $newsTitle,
+    'newsTitle' => $newsTitle,
     'description' => $newsDescription,
     'author' => "Preview",
-    'created_at' => date("d/m/Y - H:i"),
+    'createdAt' => date("d/m/Y - H:i"),
     'article' => $newsContent
 ]);
 echo $twig->render('template.html', [

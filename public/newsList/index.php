@@ -31,7 +31,7 @@ foreach ($newsList as $item) {
         'description' => $item['newsDescription'],
         'newsLink' => '../news/?content='.$item['newsLink'],
         'author' => $author,
-        'created_at' => $news->getPublishedDate($item['created_at']),
+        'created_at' => $news->getPublishedDate($item['createdAt']),
         'coverSrc' => 'a',
         'coverAlt' => 'a',
         'edit' => '../escrever/?id='.$item['newsId'],

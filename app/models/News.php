@@ -19,12 +19,11 @@ class News{
     {
         $this->db = $db;
     }
-
-        
+ 
     /**
      * getNews
      *
-     * Return a list of news
+     * Return a list with all news registred
      * 
      * @param  Database $database
      * @return array
@@ -33,23 +32,64 @@ class News{
     {
         return $this->db->select("news");
     }
-
+    
+    /**
+     * getNews
+     * 
+     * Return a single news by a given link
+     *
+     * @param  mixed $column
+     * @param  mixed $where
+     * @return array
+     */
     public function getNews(string $column, string $where)
     {
         return $this->db->select("news", $column, $where);
     }
-
-    public function getAuthorName(string $where)
+    
+    /**
+     * createNews
+     *
+     * Register a News on the database
+     * 
+     * @param  mixed $fields
+     * @param  mixed $values
+     * @return boll
+     */
+    public function createNews(array $values)
     {
-        $author = $this->db->select("users", "userId", $where);
-        return $author['authorName'];
-    }
-
-    public function createNews(array $fields, array $values)
-    {
-        return $this->db->insert("news", $fields, $values);
+        return $this->db->insert("news", $values);
     }
     
+    /**
+     * editNews
+     *
+     * Edit an existing news on the database
+     * 
+     * @param  mixed $fields
+     * @param  mixed $values
+     * @return bool
+     */
+    public function editNews(array $values, int $id)
+    {
+        return $this->db->update("news", $values, "newsId", $id);
+    }
+    
+    /**
+     * deleteNews
+     *
+     * @param  mixed $id
+     * @return void
+     */
+    public function deleteNews(string $id)
+    {
+        return $this->db->delete("news", "newsId", $id);
+    }
+    
+
+
+
+
     public function getPublishedDate(string $createdAt)
     {
         $substringPosition = strpos($createdAt, " ");
@@ -59,8 +99,10 @@ class News{
         return date("d/m/Y - H:i", $time);
     }
 
-    public function deleteNews(string $id)
+    public function getAuthorName(string $where)
     {
-        return $this->db->delete("news", "newsId", $id);
+        $author = $this->db->select("users", "userId", $where);
+        return $author['authorName'];
     }
+    
 }

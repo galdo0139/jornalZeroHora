@@ -13,28 +13,16 @@ $news = new News($db);
 $twig = new TwigConfig();
 $twig = $twig->loader();
 
-
-
-
 $data = [
-    $_POST['title'],
-    $_POST['subtitle'],
-    $_POST['writeContent'],
-    1,
-    date("Y-m-d H:i:s"),
-    $_POST['link']
+    'newsTitle' => $_POST['title'],
+    'newsDescription' => $_POST['subtitle'],
+    'newsContent' => $_POST['writeContent'],
+    'newsAuthor' => 1,
+    'createdAt' => date("Y-m-d H:i:s"),
+    'newsLink' => $_POST['link']
 ];
 
-$fields = [
-    'newsTitle',
-    'newsDescription',
-    'newsContent',
-    'newsAuthor',
-    'created_at',
-    'newsLink'
-];
-
-$isCreated = $news->createNews($fields, $data);
+$isCreated = $news->createNews($data);
 
 
 $view = "Notícia cadastrada com sucesso";

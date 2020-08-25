@@ -7,26 +7,29 @@ use App\News;
 
 include '../../app/config/config.php';
 
+
 $db = new Database();
 $news = new News($db);
-$newsList = $news->getNews("newsLink", $_GET['content']);
-$authorName = $news->getAuthorName($newsList['newsAuthor']);
-$isEdited = ($newsList['isEdited']) ? " - Editado": "";
 $twig = new TwigConfig();
 $twig = $twig->loader();
 
 
+$data = [
+    'newsTitle' => $_POST['title'],
+    'newsDescription' => $_POST['subtitle'],
+    'newsContent' => $_POST['writeContent'],
+    'newsAuthor' => 1,
+    'newsLink' => $_POST['link'],
+    'isEdited' => 1
+];
 
+$id = $_GET['id'];
+$isCreated = $news->editNews($data, $id);
 
-
-$view = $twig->render('news.html', [
-    'newsTitle' => $newsList['newsTitle'],
-    'description' => $newsList['newsDescription'],
-    'author' => $authorName,
-    'createdAt' => $news->getPublishedDate($newsList['createdAt']),
-    'isEdited' => $isEdited,
-    'article' => $newsList['newsContent']
-]);
+$view = "Notícia editada com sucesso";
+if (!$isCreated) {
+    $view = "Ocorreu um erro ao cadastrar sua notícia";
+}
 
 echo $twig->render('template.html', [
     'title' => 'Jornal Zero Hora',
@@ -35,5 +38,3 @@ echo $twig->render('template.html', [
                 <link rel="stylesheet" href="../css/news-main.css">',
     'home' =>  '../',
 ]);
-
-

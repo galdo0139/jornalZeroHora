@@ -91,38 +91,48 @@ class Database{
 	 * @param  mixed $values
 	 * @return bool
 	 */
-	public function insert(string $table, array $fields = [], array $values = [])
+	public function insert(string $table, array $values)
 	{
-
-		$fields = implode("`, `",  $fields);
-		$values = implode("', '",  $values);
+		$fields = "";
+		$bindList = "";
+		foreach ($values as $key => $value) {
+			$fields .= "`$key`, " ;
+			$bindList .= ":$key, ";
+		}
+		$fields = substr($fields, 0, -2);
+		$bindList = substr($bindList, 0, -2);
 		
-		$query = "INSERT INTO `$table` (`$fields`) VALUES ('$values')";
+		$query = "INSERT INTO `$table` ($fields) VALUES ($bindList)";
 		$prepare = $this->db->prepare($query);
+		foreach ($values as $key => $value) {
+			$prepare->bindValue(":$key", $value);
+		}
 		$res = $prepare->execute();
 
 		
 		return $res;
 	}
 
-	public function update(string $table, array $fields = [], array $values = [], string $field, string $search, $operator = "=")
+	public function update(string $table, array $values, string $field, string $search, $operator = "=")
 	{
 		try {
-			$counter = 0;
 			$updateValues = "";
-			foreach ($fields as $value) {
-				$updateValues = "`$value` = '$values[$counter]'";
-				$counter++;
+			foreach ($values as $key => $value) {
+				$updateValues .= "`$key` = :$key, ";
 			}
-			var_dump($updateValues);
-			// $query = "UPDATE `$table` SET (`$fields`) VALUES ('$values') WHERE $field $operator $search";
-			// $prepare = $this->db->prepare($query);
-			// $res = $prepare->execute();
+			$updateValues = substr($updateValues, 0, -2);
+			$query = "UPDATE `$table` SET $updateValues WHERE $field $operator :search";
+			$prepare = $this->db->prepare($query);
+			foreach ($values as $key => $value) {
+				$prepare->bindValue(":$key", $value);
+			}
+			$prepare->bindValue(":search", $search);
+			$result = $prepare->execute();
 		}catch(PDOException $error) {
 			$result = 'Error: ' . $error->getMessage();
 		}
 		
-		//return $res;
+		return $result;
 	}
 
 	public function delete(string $table, string $field, string $search, $operator = "=")
