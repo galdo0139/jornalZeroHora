@@ -10,7 +10,6 @@ include '../../app/config/config.php';
 $db = new Database();
 $news = new News($db);
 $twig = new TwigConfig();
-$twig = $twig->loader();
 
 
 
@@ -42,10 +41,10 @@ $view = $twig->render('news.html', [
     'createdAt' => date("d/m/Y - H:i"),
     'article' => $newsContent
 ]);
-echo $twig->render('template.html', [
-    'title' => 'Jornal Zero Hora',
-    'content' => $view,
-    'style' => '<link rel="stylesheet" href="../css/news-card.css">
-                <link rel="stylesheet" href="../css/news-main.css">',
-    'home' =>  '../',
+
+
+
+echo $twig->renderTemplate('Pré-visualizar notícia', $view, [
+    "../css/news-main.css"
 ]);
+

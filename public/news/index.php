@@ -13,7 +13,7 @@ $newsList = $news->getNews("newsLink", $_GET['content']);
 $authorName = $news->getAuthorName($newsList['newsAuthor']);
 $isEdited = ($newsList['isEdited']) ? " - Editado": "";
 $twig = new TwigConfig();
-$twig = $twig->loader();
+
 
 
 
@@ -28,12 +28,10 @@ $view = $twig->render('news.html', [
     'article' => $newsList['newsContent']
 ]);
 
-echo $twig->render('template.html', [
-    'title' => 'Jornal Zero Hora',
-    'content' => $view,
-    'style' => '<link rel="stylesheet" href="../css/news-card.css">
-                <link rel="stylesheet" href="../css/news-main.css">',
-    'home' =>  '../',
+
+echo $twig->renderTemplate($newsList['newsTitle'], $view, [
+    "../css/news-card.css",
+    "../css/news-main.css"
 ]);
 
 

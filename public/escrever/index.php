@@ -10,37 +10,34 @@ include '../../app/config/config.php';
 $db = new Database();
 $news = new News($db);
 $twig = new TwigConfig();
-$twig = $twig->loader();
+
 
 
 
 if(isset($_GET['id'])){
     $id = $_GET['id']; //filtrar esse input
-    $editNews = $news->getNews("newsId", $id);
-    if($editNews != false) {
+    $editingNews = $news->getNews("newsId", $id);
+    $viewTitle = "Editar Notícia";
+    if($editingNews != false) {
         $view = $twig->render('escrever.html', [
             'id' => "?id=$id",
-            'link' => $editNews['newsLink'],
-            'title' => $editNews['newsTitle'],
-            'subtitle' => $editNews['newsDescription'],
-            'write' => $editNews['newsContent'] 
+            'link' => $editingNews['newsLink'],
+            'title' => $editingNews['newsTitle'],
+            'subtitle' => $editingNews['newsDescription'],
+            'write' => $editingNews['newsContent'] 
         ]);
     }else{
         $erro = "Notícia não encontrada";
     }
 }
+
 if(!isset($view)){
     $view = $twig->render('escrever.html');
+    $viewTitle = "Escrever Notícia";
 }
 
 
-
-echo $twig->render('template.html', [
-    'title' => 'Jornal Zero Hora',
-    'content' => $view,
-    'style' => '<link rel="stylesheet" href="../css/news-write.css">',
-    'home' => '../',
-    'newsLink' => 'a',
-    'coverSrc' => 'a',
-    'coverAlt' => 'a'
+echo $twig->renderTemplate($viewTitle, $view, [
+    "../css/news-write.css",
+    "../css/news-main.css"
 ]);

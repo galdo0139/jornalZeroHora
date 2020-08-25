@@ -11,7 +11,7 @@ include '../../app/config/config.php';
 $db = new Database();
 $news = new News($db);
 $twig = new TwigConfig();
-$twig = $twig->loader();
+
 
 
 $data = [
@@ -31,10 +31,7 @@ if (!$isCreated) {
     $view = "Ocorreu um erro ao cadastrar sua notícia";
 }
 
-echo $twig->render('template.html', [
-    'title' => 'Jornal Zero Hora',
-    'content' => $view,
-    'style' => '<link rel="stylesheet" href="../css/news-card.css">
-                <link rel="stylesheet" href="../css/news-main.css">',
-    'home' =>  '../',
+echo $twig->renderTemplate('Editar Notícia', $view, [
+    "../css/news-card.css",
+    "../css/news-main.css"
 ]);

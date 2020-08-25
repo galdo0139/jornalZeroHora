@@ -13,7 +13,7 @@ $db = new Database();
 $news = new News($db);
 $newsList = $news->getNewsList();
 $twig = new TwigConfig();
-$twig = $twig->loader();
+
 
 
 
@@ -27,10 +27,7 @@ foreach ($newsList as $item) {
         'coverAlt' => 'a'
     ]);
 }
-echo $twig->render('template.html', [
-    'title' => 'Jornal Zero Hora',
-    'content' => $view,
-    'style' => '<link rel="stylesheet" href="../css/news-card.css">',
-    'home' =>  '../',    
-]);
+
+
+echo $twig->renderTemplate('Jornal Zero Hora', $view, ["../css/news-card.css"]);
 
