@@ -43,7 +43,7 @@ $view = $twig->render('news.html', [
     'article' => $newsContent
 ]);
 echo $twig->render('template.html', [
-    'title' => 'Jornal Zero Hora',
+    'title' => 'Jornal Zero',
     'content' => $view,
     'style' => '<link rel="stylesheet" href="../css/news-card.css">
                 <link rel="stylesheet" href="../css/news-main.css">',
