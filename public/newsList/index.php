@@ -2,6 +2,7 @@
 namespace App;
 
 use App\Config\Database;
+use App\Config\SessionHandler;
 use App\Config\TwigConfig;
 use App\News;
 
@@ -9,9 +10,10 @@ include '../../app/config/config.php';
 
 
 $db = new Database();
+$session = new SessionHandler();
 $news = new News($db);
 $twig = new TwigConfig();
-
+$session->Authorize();
 
 $newsList = $news->getNewsList();
 

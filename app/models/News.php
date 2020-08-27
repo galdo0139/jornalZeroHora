@@ -44,7 +44,7 @@ class News{
      */
     public function getNews(string $column, string $where)
     {
-        return $this->db->select("news", $column, $where);
+        return $this->db->select("news",[$column => $where]);
     }
     
     /**
@@ -101,7 +101,7 @@ class News{
 
     public function getAuthorName(string $where)
     {
-        $author = $this->db->select("users", "userId", $where);
+        $author = $this->db->select("users", ["userId" => $where]);
         return $author['authorName'];
     }
     

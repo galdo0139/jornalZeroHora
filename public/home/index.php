@@ -2,13 +2,14 @@
 namespace App;
 
 use App\Config\Database;
+use App\Config\SessionHandler;
 use App\Config\TwigConfig;
 use App\News;
 
 include '../../app/config/config.php';
 
 
-
+$session = new SessionHandler();
 $db = new Database();
 $news = new News($db);
 $newsList = $news->getNewsList();

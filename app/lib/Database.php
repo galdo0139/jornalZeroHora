@@ -5,9 +5,7 @@ use PDO;
 use PDOException;
 
 /**
- * Database
- * 
- * Create a database connection
+ * Create a database connection with ORM methods
  */
 class Database{
 	private $server;
@@ -19,8 +17,6 @@ class Database{
 
 		
 	/**
-	 * Database
-	 *
 	 * Return a PDO database connection to MySQL
 	 * 
 	 * @return Database
@@ -52,18 +48,30 @@ class Database{
 
 	
 	/**
-	 * Select
-	 *
 	 * Select all items from a given database table and return an array of data
 	 * 
 	 * @param  mixed $table
 	 * @return array
 	 */
-	public function select(string $table, string $field = null, $search = null, $operator = "=")
+	public function select(string $table, array $fields = null, $operator = "=")
 	{
-		$query = (is_null($search)) ? "SELECT * FROM $table" : "SELECT * FROM $table where $field $operator :where";
+		$query = "SELECT * FROM $table";
+		$isArray = false;
+		if (!is_null($fields)) {
+			$query .= " where ";
+			foreach ($fields as $key => $value) {
+				$query .= "$key $operator :$key && ";
+			}
+			$query = substr($query, 0, -4);
+			$isArray = true;
+		}
+
 		$prepare = $this->db->prepare($query);
-		$prepare->bindValue(":where", $search);
+		if ($isArray) {
+			foreach ($fields as $key => $value) {
+				$prepare->bindValue(":$key", $value);
+			}
+		}
 		$prepare->execute();
 
 		while($row = $prepare->fetch()) {
@@ -73,7 +81,7 @@ class Database{
 		if(!isset($result)){
 			return false;
 		}
-		if (is_null($search)) {
+		if (is_null($fields)) {
 			return $result;
 		}else {
 			return $result[0];
@@ -82,8 +90,6 @@ class Database{
 	}
 	
 	/**
-	 * Insert
-	 *
 	 * Insert a given list of data into a given table
 	 * 
 	 * @param  mixed $table

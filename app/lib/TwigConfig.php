@@ -1,5 +1,7 @@
 <?php
 namespace App\Config;
+
+use App\User;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 class TwigConfig{
@@ -33,7 +35,9 @@ class TwigConfig{
 
     public function renderTemplate(string $pageName, string $content, array $cssFiles = [])
     {
-        $userComponent = $this->render('userComponent.html');
+        $db = new Database();
+        $user = new User($db);
+        $userComponent = ($user->isLogged())?$this->render('userComponent.html'):"";
         
         $cssString = "";
         foreach ($cssFiles as $value) {
