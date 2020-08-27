@@ -33,7 +33,7 @@ class TwigConfig{
         return $this->twigEnviroment->render($name, $context);
     }
 
-    public function renderTemplate(string $pageName, string $content, array $cssFiles = [])
+    public function renderTemplate(string $pageName, string $content, array $cssFiles = [], $lvl = 1)
     {
         $db = new Database();
         $user = new User($db);
@@ -44,13 +44,16 @@ class TwigConfig{
             $cssString .= "<link rel='stylesheet' href='$value'>";
         }
        
-
-
+        $pathLevel = "";
+        for ($i=0; $i < $lvl ; $i++) { 
+            $pathLevel .= '../';
+        }
         return $this->render('template.html', [
             'title' => $pageName,
             'content' => $content,
             'style' => $cssString,
-            'home' =>  '../',
+            'home' =>  $pathLevel,
+            'maincss' => $pathLevel."css/main.css",
             'userComponent' => $userComponent
         ]);
 

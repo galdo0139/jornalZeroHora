@@ -24,8 +24,21 @@ class User{
         
        // $password =  password_hash("ABC123", PASSWORD_DEFAULT);
         $result = $this->db->select("users", ["userName" => $username]);
-        
 
-        return (password_verify($password, $result['userPassword']));
+
+        $_SESSION['profile'] = "user";
+        $_SESSION['authorName'] = $result["authorName"];
+        $success = password_verify($password, $result['userPassword']);
+        if (!$success) {
+            $_SESSION['message'] = "Usuário ou senha incorreto";
+        }
+        return $success;
+    }
+
+
+    public function getUsersList()
+    {
+        return $this->db->select("users");
     }
 }
+

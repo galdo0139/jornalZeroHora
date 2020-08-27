@@ -44,7 +44,12 @@ class News{
      */
     public function getNews(string $column, string $where)
     {
-        return $this->db->select("news",[$column => $where]);
+        $result = $this->db->select("news",[$column => $where]);
+        if ($result == false) {
+            $_SESSION['message'] = "Página não encontrada";
+            header("Location: ../error");
+        }
+        return $result;
     }
     
     /**

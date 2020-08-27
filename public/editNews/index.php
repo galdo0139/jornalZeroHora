@@ -34,7 +34,7 @@ if (!$isCreated) {
     $view = "Ocorreu um erro ao cadastrar sua notícia";
 }
 
-echo $twig->renderTemplate('Editar Notícia', $view, [
+echo $twig->renderTemplate($view , $view, [
     "../css/news-card.css",
     "../css/news-main.css"
 ]);

@@ -33,7 +33,7 @@ if (!$isCreated) {
 }
 
 
-echo $twig->renderTemplate('Salvar Notícia', $view, [
+echo $twig->renderTemplate($view, $view, [
     "../css/news-card.css",
     "../css/news-main.css"
 ]);

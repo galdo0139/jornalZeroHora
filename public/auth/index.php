@@ -23,8 +23,5 @@ if ($result) {
     $_SESSION['logged'] = true;
     $redirectTo = "home";
 }
-// var_dump($result);
-
-
 
 header("location: ../$redirectTo");
