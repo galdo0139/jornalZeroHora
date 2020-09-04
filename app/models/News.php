@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use App\Config\Database;
+use App\Library\Database;
+use Gumlet\ImageResize;
 
 class News{
     protected $newsIdPrimária;
@@ -62,7 +63,8 @@ class News{
      * @return boll
      */
     public function createNews(array $values)
-    {
+    {   
+        $values['newsCoverPath'] = str_replace('images/tmpCover/','images/coverNews/',$values['newsCoverPath']);
         return $this->db->insert("news", $values);
     }
     
@@ -77,6 +79,7 @@ class News{
      */
     public function editNews(array $values, int $id)
     {
+        $values['newsCoverPath'] = str_replace('images/tmpCover/','images/coverNews/',$values['newsCoverPath']);
         return $this->db->update("news", $values, "newsId", $id);
     }
     
@@ -108,6 +111,45 @@ class News{
     {
         $author = $this->db->select("users", ["userId" => $where]);
         return $author['authorName'];
+    }
+
+    public function saveTemporaryCoverImage()
+    {   
+        //path to temporary cover images
+        $coverDir = "../../../public/images/tmpCover/";
+        
+        //generate a new randomic number to the image name
+        $randNum = mt_rand(1, 9);
+        while (strlen($randNum) < 6) {
+            $randNum .= mt_rand(0, 9);
+        }
+
+        //create a new name to the image
+        $fileName = date("Y-m-d_H-i-s") ."_".$randNum. $_FILES['cover']['name'];
+        
+        //take the file name and concatenate with the tmp directory
+        $pathToImage = $coverDir.basename($fileName);
+
+        //saves the uploaded image to the tmp directory
+        $result = move_uploaded_file($_FILES['cover']['tmp_name'], $pathToImage);
+
+        
+        
+        //resize the image
+        $imageResize = new ImageResize($pathToImage);
+        $imageResize->resize(500, 300, true);
+        $imageResize->save($pathToImage);
+        
+        //return the path to the temporary image
+        return $pathToImage;
+    }
+
+    public function saveCoverDefinitely(string $filePath, $atualCover = null)
+    {
+        
+        //move temporary image to the definitely directory
+        $new = str_replace('images/tmpCover/','images/coverNews/',$filePath);
+        return rename($filePath, $new);
     }
     
 }

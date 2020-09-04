@@ -1,16 +1,13 @@
 <?php
 namespace App;
 
-use App\Config\Database;
-use App\Config\TwigConfig;
-use App\News;
-use  App\Config\SessionHandler;
+use App\Library\Database;
+use App\Library\SessionHandler;
+use App\Library\TwigConfig;
 
-include '../../app/config/config.php';
-
+include '../../app/config/autoloader.php';
 
 $session = new SessionHandler();
-$twig = new TwigConfig();
 if (isset($_SESSION['logged'])) {
     header("Location: ../home");
 }

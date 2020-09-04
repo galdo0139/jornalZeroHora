@@ -1,34 +1,34 @@
 <?php
 namespace App;
 
-use App\Config\Database;
-use App\Config\SessionHandler;
-use App\Config\TwigConfig;
-use App\News;
+use App\Library\Database;
+use App\Library\SessionHandler;
+use App\Library\TwigConfig;
+use App\Models\News;
 
-include '../../app/config/config.php';
-
+include '../../app/config/autoloader.php';
 
 $session = new SessionHandler();
-$db = new Database();
 $news = new News($db);
 $newsList = $news->getNewsList();
-$twig = new TwigConfig();
 
 
 
 
 $view = "";
 foreach ($newsList as $item) {
-    $view .= $twig->render('home.html', [
+    $view .= $twig->render('card.html', [
         'newstitle' => $item['newsTitle'],
         'description' => $item['newsDescription'],
         'newsLink' => '../news/?content='.$item['newsLink'],
-        'coverSrc' => 'a',
+        'coverSrc' => substr($item['newsCoverPath'],3),
         'coverAlt' => 'a'
     ]);
 }
 
 
-echo $twig->renderTemplate('Jornal Zero Hora', $view, ["../css/news-card.css"]);
+echo $twig->renderTemplate('Jornal Zero Hora', $view, [
+    "news-card.css",
+    "home.css"    
+]);
 

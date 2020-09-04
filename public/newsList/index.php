@@ -1,22 +1,25 @@
 <?php
 namespace App;
 
-use App\Config\Database;
-use App\Config\SessionHandler;
-use App\Config\TwigConfig;
-use App\News;
+use App\Library\Database;
+use App\Library\SessionHandler;
+use App\Library\TwigConfig;
+use App\Models\News;
 
-include '../../app/config/config.php';
+include '../../app/config/autoloader.php';
 
 
-$db = new Database();
 $session = new SessionHandler();
 $news = new News($db);
-$twig = new TwigConfig();
 $session->Authorize();
 
 $newsList = $news->getNewsList();
 
+$message = "";
+if (isset($_GET['deleteResult']) && $_GET['deleteResult'] == "success") {
+    $message = $session->getErrorMessage();
+    $session->setErrorMessage("");
+}
 
 
 
@@ -26,6 +29,7 @@ foreach ($newsList as $item) {
     $author = $news->getAuthorName($item['newsAuthor']);
     $view .= $twig->render('newsList.html', 
     [
+        'message' => $message,
         'newstitle' => $item['newsTitle'],
         'description' => $item['newsDescription'],
         'newsLink' => '../news/?content='.$item['newsLink'],
@@ -33,13 +37,15 @@ foreach ($newsList as $item) {
         'created_at' => $news->getPublishedDate($item['createdAt']),
         'coverSrc' => 'a',
         'coverAlt' => 'a',
-        'edit' => '../escrever/?id='.$item['newsId'],
-        'delete' => '../delete/?id='.$item['newsId']
+        'edit' => '../news/escrever/?id='.$item['newsId'],
+        'delete' => '../news/delete/?id='.$item['newsId']
     ]);
 }
 
 $view .= $twig->render('warning.html');
 
+
+
 echo $twig->renderTemplate('Minhas Notícias', $view, [
-    "../css/news-list.css"
+    "news-list.css"
 ]);

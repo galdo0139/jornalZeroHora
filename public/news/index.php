@@ -1,20 +1,18 @@
 <?php
 namespace App;
 
-use App\Config\Database;
-use App\Config\SessionHandler;
-use App\Config\TwigConfig;
-use App\News;
+use App\Library\Database;
+use App\Library\SessionHandler;
+use App\Library\TwigConfig;
+use App\Models\News;
 
-include '../../app/config/config.php';
+include '../../app/config/autoloader.php';
 
-$db = new Database();
 $session = new SessionHandler();
 $news = new News($db);
 $newsList = $news->getNews("newsLink", $_GET['content']);
 $authorName = $news->getAuthorName($newsList['newsAuthor']);
 $isEdited = ($newsList['isEdited']) ? " - Editado": "";
-$twig = new TwigConfig();
 
 
 
@@ -34,8 +32,8 @@ $view = $twig->render('news.html', [
 
 
 echo $twig->renderTemplate($newsList['newsTitle'], $view, [
-    "../css/news-card.css",
-    "../css/news-main.css"
+    "news-card.css",
+    "news-main.css"
 ]);
 
 

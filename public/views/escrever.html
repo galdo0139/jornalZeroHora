@@ -1,4 +1,4 @@
-<form action="../preview/{{id}}" method="post">
+<form action="../preview/{{id}}" method="post" enctype='multipart/form-data'>
     <label for="link">Link URI</label>
     <input type="text" name="link" value="{{link}}">
     
@@ -7,6 +7,9 @@
 
     <label for="subtitle">Sub-titulo</label>
     <input type="text" name="subtitle"  value="{{subtitle}}">
+
+    <label for="cover">Capa da notícia</label>
+    <input type="file" name="cover"  value="{{cover}}">
 
     <label for="content">Conteúdo</label>
     <div class="controls">
@@ -18,4 +21,4 @@
     <textarea name="writeContent" id="writeContent" hidden></textarea>
     <button type="submit" id="submit">Pré-visualizar</button>
 </form>
-<script src="../js/editor.js"></script>
+<script src="../../js/editor.js"></script>

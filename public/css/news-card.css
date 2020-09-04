@@ -9,10 +9,11 @@
 }
 #content .news-card{
     border: 1px solid black;
-    margin: 2rem;
+    margin: 2rem 0rem;
 
     height: 500px;
 }
+
 
 #content .news-card .image{
     background-color: #ddd;
@@ -47,12 +48,12 @@
     
     #content .news-card{
         height: 500px;
-        flex: 0 0 28%;
+        flex: 0 0 31%;
     }
     
     #content .news-card::after{
         content: "";
-        flex: 0 1 28%;
+        flex: 0 1 31%;
     }
 
     #content .news-card .image{

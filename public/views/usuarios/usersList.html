@@ -1,0 +1,30 @@
+<div>
+    <a href="create">
+        <button>Criar novo usuário</button>
+    </a>
+</div>
+<p class="message-erro">{{message}}</p>
+
+{% for user in users %}
+<div class="news-card">    
+    <a href="{{a}}">
+        <div class="image">
+            <img src="{{coverSrc}}" alt="{{coverAlt}}">
+        </div>
+        <h1 class="newstitle">{{user.userFullName}}</h1>
+        <h2 class="description">{{user.authorName}}</h2>
+    </a>
+    <div class="buttons">
+        <a href="edit/?id={{user.userId}}">
+            <button>
+                <span class="material-icons">edit</span>
+            </button>
+        </a>
+        <a href="delete/?id={{user.userId}}">
+            <button>
+                <span class="material-icons">delete_forever</span>
+            </button>
+        </a>
+    </div>
+</div>
+{% endfor %}

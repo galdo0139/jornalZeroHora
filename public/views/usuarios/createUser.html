@@ -1,0 +1,17 @@
+<p class="message-erro">{{message}}</p>
+<form action="{{action}}" method="post">
+    <label for="userFullName">Nome completo</label>
+    <input type="text" name="userFullName" id="userFullName" value="{{user.userFullName}}">
+    
+    <label for="authorName">Nome de autor</label>
+    <input type="text" name="authorName" placeholder="Nome que será exibido nas notícias" id="authorName" value="{{user.authorName}}">
+
+    <label for="userName">Usuário</label>
+    <input type="text" name="userName" id="userName" value="{{user.userName}}">
+
+    {% if user.userPassword is not defined%}
+        <label for="userPassword">Senha</label>
+        <input type="password" name="userPassword" id="userPassword" value="{{user.userPassword}}">
+    {% endif %}
+    <input type="submit" value="Cadastrar">
+</form>

@@ -1,5 +1,6 @@
 {{preview | raw}}
 <article class="news-main">
+    <img src="{{cover}}" alt="" srcset="">
     <h1 class="newstitle">{{newsTitle | raw}}</h1>
     <h2 class="description">{{description | raw}}</h2>
     <div class="info">
@@ -11,5 +12,8 @@
     </div>
 </article>
 
+{% if previewCard is defined %}
+    {{previewCard | raw}}
+{% endif %}
 
 

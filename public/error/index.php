@@ -1,17 +1,14 @@
 <?php
 namespace App;
 
-use App\Config\Database;
-use App\Config\SessionHandler;
-use App\Config\TwigConfig;
+use App\Library\Database;
+use App\Library\SessionHandler;
+use App\Library\TwigConfig;
 
-include '../../app/config/config.php';
+include '../../app/config/autoloader.php';
 
 
 $session = new SessionHandler();
-$db = new Database();
-$twig = new TwigConfig();
-
 
 
 

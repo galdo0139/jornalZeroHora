@@ -1,17 +1,15 @@
 <?php
 namespace App;
 
-use App\Config\Database;
-use App\Config\SessionHandler;
-use App\Config\TwigConfig;
-use App\News;
+use App\Library\Database;
+use App\Library\SessionHandler;
+use App\Library\TwigConfig;
+use App\Models\User;
 
-
-include '../../app/config/config.php';
+include '../../app/config/autoloader.php';
 
 
 $session = new SessionHandler();
-$db = new Database();
 $user = new User($db);
 $result = $user->authenticate($_POST);
 
